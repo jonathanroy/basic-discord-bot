@@ -9,21 +9,21 @@ Object.keys(botCommands).map(key => {
     bot.commands.set(botCommands[key].name, botCommands[key]);
 });
 
-const TOKEN = process.env.TOKEN;
-const PREFIX = process.env.PREFIX;
+const BOT_TOKEN = process.env.BOT_TOKEN;
+const CMD_PREFIX = process.env.CMD_PREFIX;
 
-bot.login(TOKEN);
+bot.login(BOT_TOKEN);
 
 bot.on('ready', () => {
-    console.log(`Connected as ${bot.user.tag}`)
+    console.log(`Connected as ${bot.user.tag}`);
 });
 
 bot.on('message', msg => {
     if (msg.author.bot) return;
 
-    if (msg.content.startsWith(PREFIX)) {
+    if (msg.content.startsWith(CMD_PREFIX)) {
         const args = msg.content.split(/ +/);
-        const command = args.shift().toLowerCase().substring(PREFIX.length);
+        const command = args.shift().toLowerCase().substring(CMD_PREFIX.length);
         console.info(`Called command: ${command}`);
 
         if (!bot.commands.has(command)) return;
